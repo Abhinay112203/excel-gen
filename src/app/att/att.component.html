@@ -1,0 +1,5 @@
+<textarea #item (change)="update(item.value)"></textarea>
+<button (click)="log('a')">log</button>
+<div *ngFor="let item of fn | keyvalue">
+    {{item.key}} -> {{item.value}}
+</div>

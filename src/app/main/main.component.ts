@@ -1,16 +1,15 @@
-import { formatDate } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { WorkBook, read, WorkSheet, utils, writeFile } from 'xlsx';
+
+import { Component } from '@angular/core';
 import moment from 'moment';
+import { WorkBook, WorkSheet, read, utils, writeFile } from 'xlsx';
 @Component({
-  selector: 'app-root',
+  selector: 'app-main',
   standalone: true,
-  imports: [RouterOutlet],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  imports: [],
+  templateUrl: './main.component.html',
+  styleUrl: './main.component.scss'
 })
-export class AppComponent implements OnInit {
+export class MainComponent {
   title = 'excel-gen';
   data: any[] = [];
   itemsList: string[] = [];

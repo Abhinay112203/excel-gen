@@ -1,0 +1,5 @@
+<textarea name="todays-items" #item (change)="items(item.value)" ></textarea>
+<br/>
+<input type="file" (change)="onFileChange($event)" multiple="false" />
+<button type="button" (click)="log()" >Log</button>
+<br/>
