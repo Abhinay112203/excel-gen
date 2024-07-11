@@ -6,13 +6,16 @@ node {
         stage('Stopping Nginx') {
             sh 'sudo systemctl disable nginx'
         }
+        stage('Installing required files') {
+            sh 'npm i'
+        }
         stage('Building Dist') {
             sh 'npm run build'
         }
-        stage('Building Dist') {
+        stage('testing') {
             sh 'ls'
         }
-        stage('Building Dist') {
+        stage('testting 2') {
             sh 'cd dist'
             sh 'ls'
         }
