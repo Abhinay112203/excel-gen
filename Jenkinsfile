@@ -16,7 +16,7 @@ node {
             sh 'sudo rm -rf /var/www/html/*'
         }
         stage('Moving Files') {
-            sh 'sudo cp -rf ./dist/excel-gen/browser/ /home/opc/test/excel-gen/browser/'
+            sh ' sudo cp -rf ./dist/excel-gen/ /home/opc/test/'
         }
         stage('Starting Nginx') {
             sh 'sudo systemctl enable nginx'
