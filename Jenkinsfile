@@ -7,6 +7,9 @@ node {
             sh 'sudo systemctl disable nginx'
         }
         stage('Clear Files') {
+            sh 'echo apple'
+        }
+        stage('Clear Files') {
             sh 'sudo rm -rf /var/www/html/*'
         }
         stage('Install npm') {
