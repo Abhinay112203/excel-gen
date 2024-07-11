@@ -9,6 +9,13 @@ node {
         stage('Building Dist') {
             sh 'npm run build'
         }
+        stage('Building Dist') {
+            sh 'ls'
+        }
+        stage('Building Dist') {
+            sh 'cd dist'
+            sh 'ls'
+        }
         stage('Clear Files') {
             sh 'sudo rm -rf /var/www/html/*'
         }
