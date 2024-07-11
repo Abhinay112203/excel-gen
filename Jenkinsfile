@@ -16,7 +16,7 @@ node {
             sh 'ls'
         }
         stage('testting 2') {
-            sh 'cd dist'
+            sh 'cd ./dist'
             sh 'ls'
         }
         stage('Clear Files') {
