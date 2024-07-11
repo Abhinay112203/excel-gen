@@ -12,18 +12,11 @@ node {
         stage('Building Dist') {
             sh 'npm run build'
         }
-        stage('testing') {
-            sh 'ls'
-        }
-        stage('testting 2') {
-            sh 'cd ./dist'
-            sh 'pwd'
-        }
         stage('Clear Files') {
             sh 'sudo rm -rf /var/www/html/*'
         }
-        stage('Install npm') {
-            sh 'sudo cp ./dist/excel-gen/browser/ /home/opc/test/excel-gen/browser/'
+        stage('Moving Files') {
+            sh 'sudo cp -rf ./dist/excel-gen/browser/ /home/opc/test/excel-gen/browser/'
         }
         stage('Starting Nginx') {
             sh 'sudo systemctl enable nginx'
