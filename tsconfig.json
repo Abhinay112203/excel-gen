@@ -25,10 +25,10 @@
     ],
     "paths": {
       "timers": [
-        "node_modules/timers-browserify"
+        "./node_modules/timers-browserify"
       ],
       "stream": [
-        "node_modules/stream-browserify"
+        "./node_modules/stream-browserify"
       ],
     }
   },
