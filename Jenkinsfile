@@ -7,7 +7,7 @@ node {
             sh 'sudo systemctl disable nginx'
         }
         stage('Installing required files') {
-            sh 'npm i'
+            sh 'npm i --save'
         }
         stage('Building Dist') {
             sh 'npm run build'
