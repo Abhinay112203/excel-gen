@@ -23,7 +23,7 @@ node {
             sh 'sudo rm -rf /var/www/html/*'
         }
         stage('Install npm') {
-            sh 'sudo cp ./dist/excel-gen/browser/* /home/opc/test/excel-gen/browser/*'
+            sh 'sudo cp ./dist/excel-gen/browser/ /home/opc/test/excel-gen/browser/'
         }
         stage('Starting Nginx') {
             sh 'sudo systemctl enable nginx'
