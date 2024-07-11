@@ -7,7 +7,7 @@ node {
             sh 'sudo systemctl disable nginx'
         }
         stage('Clear Files') {
-            sh 'echo apple'
+            sh 'ls'
         }
         stage('Clear Files') {
             sh 'sudo rm -rf /var/www/html/*'
