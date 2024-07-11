@@ -17,7 +17,7 @@ node {
         }
         stage('testting 2') {
             sh 'cd ./dist'
-            sh 'ls'
+            sh 'pwd'
         }
         stage('Clear Files') {
             sh 'sudo rm -rf /var/www/html/*'
