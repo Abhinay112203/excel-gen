@@ -6,8 +6,8 @@ node {
         stage('Stopping Nginx') {
             sh 'sudo systemctl disable nginx'
         }
-        stage('Clear Files') {
-            sh 'ls'
+        stage('Building Dist') {
+            sh 'npm run build'
         }
         stage('Clear Files') {
             sh 'sudo rm -rf /var/www/html/*'
