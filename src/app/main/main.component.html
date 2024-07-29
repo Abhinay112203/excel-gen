@@ -1,5 +1,8 @@
-<textarea name="todays-items" #item (change)="items(item.value)" ></textarea>
-<br/>
+<textarea name="todays-items" #item (change)="items(item.value)"></textarea>
+<br />
 <input type="file" (change)="onFileChange($event)" multiple="false" />
-<button type="button" (click)="log()" >Generate Excel</button>
-<br/>
+<br />
+<div>
+    <button type="button" (click)="log()">Generate and Download Excel</button>
+</div>
+<br />

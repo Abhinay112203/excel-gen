@@ -1,3 +1,6 @@
-<a [routerLink]="['/att']" routerLinkActive="router-link-active"  >att</a>
-<a [routerLink]="['/']" routerLinkActive="router-link-active"  >Home</a>
+<div style="display: flex; gap: 10px;">
+    <a [routerLink]="['/']" routerLinkActive="active-link">Home</a>
+    <a [routerLink]="['/att']" routerLinkActive="active-link">Attendance Reformat</a>
+</div>
+<br />
 <router-outlet></router-outlet>

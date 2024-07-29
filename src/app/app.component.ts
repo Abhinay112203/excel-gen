@@ -1,12 +1,12 @@
 import { formatDate } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { RouterLink, RouterOutlet } from '@angular/router';
+import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { WorkBook, read, WorkSheet, utils, writeFile } from 'xlsx';
 import moment from 'moment';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, RouterLink],
+  imports: [RouterOutlet, RouterLink, RouterLinkActive],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
@@ -17,7 +17,6 @@ export class AppComponent implements OnInit {
   mappedData: Map<string, any[][]> = new Map();
   items(evt: string) {
     let arr = evt.split("\n").filter((item) => !(new RegExp('F[0-9]')).test(item)).filter((item) => item.length > 0);
-    console.log(arr);
     this.itemsList = arr;
   }
   ngOnInit(): void {
