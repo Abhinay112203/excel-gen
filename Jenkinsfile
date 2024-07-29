@@ -7,7 +7,7 @@ node {
             sh 'sudo systemctl disable nginx'
         }
         stage('Installing required files') {
-            sh 'npm i --save'
+            sh 'npm i --save --legacy-peer-deps'
         }
         stage('Building Dist') {
             sh 'npm run build'
