@@ -59,7 +59,8 @@ export class MainComponent {
       // let finalPrice = 
       final.push({
         itemCode: key,
-        price: String(batch.price)
+        price: String(batch.price),
+        batches: String(val.length)
       })
     });
     // console.log(final)
