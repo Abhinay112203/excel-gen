@@ -77,8 +77,10 @@ export class MainComponent {
 
   calculateAverage(batches: any[]) {
     let res = batches.reduce((ex, batch) => {
-      let bP = batch[19];
+      let bP = batch[18];
       let bQ = batch[13];
+      let bM = batch[20];
+      let pDays = batch[11];
       let expDate = moment(batch[10], 'DD/MM/YYYY', true);
       // let yesterday = moment(new Date()).subtract(1, 'day');
       // console.log(.isValid(), batch[10])
@@ -86,7 +88,7 @@ export class MainComponent {
         return ex;
       } else {
         return {
-          price: ((ex.price * ex.qty) + (bP * bQ)) / (ex.qty + bQ),
+          price: ((ex.price * ex.qty) + (bQ * (bP * (1 + (bM / 100))))) / (ex.qty + bQ),
           qty: ex.qty + bQ
         }
       }
