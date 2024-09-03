@@ -7,7 +7,7 @@
 <div>
     <button type="button" (click)="log()">Calculate Values</button>
 </div>
-<div *ngIf="finalPricesList.length > 0" >
+<div *ngIf="finalPricesList.length > 0 && !exportRequired" >
     <table>
         <tr>
           <th>ItemCode</th>
