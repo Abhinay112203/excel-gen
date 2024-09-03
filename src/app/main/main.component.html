@@ -2,7 +2,23 @@
 <br />
 <input type="file" (change)="onFileChange($event)" multiple="false" />
 <br />
+<input [(ngModel)]="exportRequired"  type="checkbox" name="export-required" id="export-required">
+<label for="export-required" >Export Required</label>
 <div>
-    <button type="button" (click)="log()">Generate and Download Excel</button>
+    <button type="button" (click)="log()">Calculate Values</button>
+</div>
+<div *ngIf="finalPricesList.length > 0" >
+    <table>
+        <tr>
+          <th>ItemCode</th>
+          <th>ItemName</th>
+          <th>Price</th>
+        </tr>
+        <tr *ngFor="let item of finalPricesList" >
+          <td>{{item.itemCode}}</td>
+          <td>{{item.price}}</td>
+          <td>{{item.batches}}</td>
+        </tr>
+      </table>
 </div>
 <br />

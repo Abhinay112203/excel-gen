@@ -1,11 +1,13 @@
 
+import { NgFor, NgIf } from '@angular/common';
 import { Component } from '@angular/core';
+import { FormsModule, NgModel } from '@angular/forms';
 import moment from 'moment';
 import { WorkBook, WorkSheet, read, utils, writeFile } from 'xlsx';
 @Component({
   selector: 'app-main',
   standalone: true,
-  imports: [],
+  imports: [FormsModule, NgFor, NgIf],
   templateUrl: './main.component.html',
   styleUrl: './main.component.scss'
 })
@@ -14,9 +16,14 @@ export class MainComponent {
   data: any[] = [];
   itemsList: string[] = [];
   mappedData: Map<string, any[][]> = new Map();
+  finalPricesList: {
+    itemCode: string,
+    price: string,
+    batches: string
+  }[] = [];
+  exportRequired: boolean = false;
   items(evt: string) {
     let arr = evt.split("\n").filter((item) => !(new RegExp('F[0-9]')).test(item)).filter((item) => item.length > 0);
-    console.log(arr);
     this.itemsList = arr;
   }
   ngOnInit(): void {
@@ -52,19 +59,23 @@ export class MainComponent {
     reader.readAsArrayBuffer(target.files[0]);
   }
   log() {
-    // console.table(this.mappedData);
     let final: any[] = [];
     this.mappedData.forEach((val, key) => {
       let batch = this.calculateAverage(val);
-      // let finalPrice = 
-      final.push({
-        itemCode: key,
-        price: String(batch.price),
-        batches: String(val.length)
-      })
+      try {
+        final.push({
+          itemCode: key,
+          price: Number(Math.round(batch.price)),
+          batches: String(val.length)
+        });
+      } catch (error) {
+        console.log(error);
+      }
     });
-    // console.log(final)
-    this.toJson(final);
+    this.finalPricesList = [...final];
+    if (this.exportRequired) {
+      this.toJson(final);
+    }
   }
 
   toJson(arr: any[]) {
@@ -80,11 +91,8 @@ export class MainComponent {
       let bP = batch[18];
       let bQ = batch[13];
       let bM = batch[20];
-      let pDays = batch[11];
-      let expDate = moment(batch[10], 'DD/MM/YYYY', true);
-      // let yesterday = moment(new Date()).subtract(1, 'day');
-      // console.log(.isValid(), batch[10])
-      if (moment(expDate).isBefore(new Date())) {
+      let pDays = batch[11] ? Number(batch[11]) : 0;
+      if (pDays < 0) {
         return ex;
       } else {
         return {
