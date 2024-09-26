@@ -1,8 +1,7 @@
 
 import { NgFor, NgIf } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormsModule, NgModel } from '@angular/forms';
-import moment from 'moment';
+import { FormsModule } from '@angular/forms';
 import { WorkBook, WorkSheet, read, utils, writeFile } from 'xlsx';
 @Component({
   selector: 'app-main',
@@ -15,12 +14,12 @@ export class MainComponent {
   title = 'excel-gen';
   excelData: any[] = [];
   itemsList: string[] = [];
-  mappedData: Map<string, {itemCode: string, batches: any[]}> = new Map();
+  mappedData: Map<string, { ItemCode: string, batches: any[] }> = new Map();
   finalPricesList: {
-    itemCode: string,
-    itemName: string,
-    price: string,
-    batches: string
+    ItemCode: string,
+    ItemName: string,
+    Price: string | Number,
+    Batches: string
   }[] = [];
   exportRequired: boolean = false;
   items(evt: string) {
@@ -45,7 +44,7 @@ export class MainComponent {
 
       /* save data */
       this.excelData = (utils.sheet_to_json(ws, { header: 1, defval: null })).slice(6, -1)
-      this.mappedData = new Map<string, {itemCode: string, batches: any[]}>();
+      this.mappedData = new Map<string, { ItemCode: string, batches: any[] }>();
       this.excelData = this.excelData.filter(item => this.itemsList.includes(item[3]));
       this.excelData.forEach((item) => {
         const itemRef = item[3];
@@ -53,22 +52,27 @@ export class MainComponent {
           let existing = this.mappedData.get(itemRef);
           existing?.batches.push(item);
         } else {
-          this.mappedData.set(itemRef, {itemCode: item[2], batches: [item]});
+          this.mappedData.set(itemRef, { ItemCode: item[2], batches: [item] });
         }
       });
     };
     reader.readAsArrayBuffer(target.files[0]);
   }
   log() {
-    let final: any[] = [];
+    let final: {
+      ItemCode: string,
+      ItemName: string,
+      Price: string | number,
+      Batches: string
+    }[] = [];
     this.mappedData.forEach((val, key) => {
       let batch = this.calculateAverage(val.batches);
       try {
         final.push({
-          itemCode: val.itemCode,
-          itemName: key,
-          price: Number(Math.round(batch.price)),
-          batches: String(val.batches.length)
+          ItemCode: val.ItemCode,
+          ItemName: key,
+          Price: Number(Math.round(batch.price)),
+          Batches: String(val.batches.length)
         });
       } catch (error) {
         console.log(error);
