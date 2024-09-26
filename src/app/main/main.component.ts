@@ -13,11 +13,12 @@ import { WorkBook, WorkSheet, read, utils, writeFile } from 'xlsx';
 })
 export class MainComponent {
   title = 'excel-gen';
-  data: any[] = [];
+  excelData: any[] = [];
   itemsList: string[] = [];
-  mappedData: Map<string, any[][]> = new Map();
+  mappedData: Map<string, {itemCode: string, batches: any[]}> = new Map();
   finalPricesList: {
     itemCode: string,
+    itemName: string,
     price: string,
     batches: string
   }[] = [];
@@ -43,16 +44,16 @@ export class MainComponent {
       const ws: WorkSheet = wb.Sheets[wsname];
 
       /* save data */
-      this.data = (utils.sheet_to_json(ws, { header: 1, defval: null })).slice(6, -1)
-      this.mappedData = new Map<string, any[][]>();
-      this.data = this.data.filter(item => this.itemsList.includes(item[3]));
-      this.data.forEach((item) => {
+      this.excelData = (utils.sheet_to_json(ws, { header: 1, defval: null })).slice(6, -1)
+      this.mappedData = new Map<string, {itemCode: string, batches: any[]}>();
+      this.excelData = this.excelData.filter(item => this.itemsList.includes(item[3]));
+      this.excelData.forEach((item) => {
         const itemRef = item[3];
         if (this.mappedData.has(itemRef)) {
           let existing = this.mappedData.get(itemRef);
-          existing?.push(item);
+          existing?.batches.push(item);
         } else {
-          this.mappedData.set(itemRef, [item]);
+          this.mappedData.set(itemRef, {itemCode: item[2], batches: [item]});
         }
       });
     };
@@ -61,12 +62,13 @@ export class MainComponent {
   log() {
     let final: any[] = [];
     this.mappedData.forEach((val, key) => {
-      let batch = this.calculateAverage(val);
+      let batch = this.calculateAverage(val.batches);
       try {
         final.push({
-          itemCode: key,
+          itemCode: val.itemCode,
+          itemName: key,
           price: Number(Math.round(batch.price)),
-          batches: String(val.length)
+          batches: String(val.batches.length)
         });
       } catch (error) {
         console.log(error);
