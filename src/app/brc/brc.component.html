@@ -1,0 +1,26 @@
+<textarea name="todays-items" #item (change)="items(item.value)"></textarea>
+<br />
+<input type="file" (change)="onFileChange($event)" multiple="false" />
+<br />
+<input [(ngModel)]="exportRequired"  type="checkbox" name="export-required" id="export-required">
+<label for="export-required" >Export Required</label>
+<div>
+    <button type="button" (click)="log()">Calculate Values</button>
+</div>
+<div *ngIf="finalPricesList.length > 0 && !exportRequired" >
+    <table>
+        <tr>
+          <th>ItemCode</th>
+          <th>ItemName</th>
+          <th>Price</th>
+          <th>Batches</th>
+        </tr>
+        <tr *ngFor="let item of finalPricesList" >
+          <td>{{item.ItemCode}}</td>
+          <td>{{item.ItemName}}</td>
+          <td>{{item.Price}}</td>
+          <td>{{item.Batches}}</td>
+        </tr>
+      </table>
+</div>
+<br />

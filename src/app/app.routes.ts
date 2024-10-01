@@ -8,6 +8,10 @@ export const routes: Routes = [
         component: MainComponent
     },
     {
+        path: 'brc',
+        loadComponent: () => import('./brc/brc.component').then((m) => m.BrcComponent)
+    },
+    {
         path: 'att',
         loadComponent: () => import('./att/att.component').then((m) => m.AttComponent)
     },
