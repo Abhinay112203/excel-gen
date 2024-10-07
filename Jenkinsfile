@@ -13,10 +13,10 @@ node {
             sh 'npm run build'
         }
         stage('Clear Files') {
-            sh 'sudo rm -rf /usr/share/nginx/html/*'
+            sh 'sudo rm -rf /usr/share/nginx/brc/*'
         }
         stage('Moving Files') {
-            sh ' sudo cp -rf ./dist/excel-gen/browser/* /usr/share/nginx/html/'
+            sh ' sudo cp -rf ./dist/excel-gen/browser/* /usr/share/nginx/brc/'
         }
         stage('Starting Nginx') {
             sh 'sudo systemctl enable nginx'
