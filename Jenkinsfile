@@ -16,7 +16,7 @@ node {
             sh 'sudo rm -rf /usr/share/nginx/brc/*'
         }
         stage('Moving Files') {
-            sh ' sudo cp -rf ./dist/excel-gen/browser/* /usr/share/nginx/brc/'
+            sh ' sudo cp -rf ./dist/excel-gen/browser/* /usr/share/nginx/html/brc/'
         }
         stage('Starting Nginx') {
             sh 'sudo systemctl enable nginx'
