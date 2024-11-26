@@ -13,10 +13,10 @@ node {
             sh 'npm run build'
         }
         stage('Clear Files') {
-            sh 'sudo rm -rf /usr/share/nginx/brc/*'
+            sh 'sudo rm -rf /var/www/html/brc.abhinayresume.online/*'
         }
         stage('Moving Files') {
-            sh ' sudo cp -rf ./dist/excel-gen/browser/* /usr/share/nginx/html/brc/'
+            sh ' sudo cp -rf ./dist/excel-gen/browser/* /var/www/html/brc.abhinayresume.online/'
         }
         stage('Starting Nginx') {
             sh 'sudo systemctl enable nginx'
