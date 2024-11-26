@@ -63,7 +63,9 @@ export class BrcComponent {
       ItemCode: string,
       ItemName: string,
       Price: string | number,
-      Batches: string
+      Batches: string,
+      Weight: string,
+      UOM: string,
     }[] = [];
     this.mappedData.forEach((val, key) => {
       let batch = this.calculateAverage(val.batches);
@@ -71,8 +73,10 @@ export class BrcComponent {
         final.push({
           ItemCode: val.ItemCode,
           ItemName: key,
+          UOM: String(batch.uom),
+          Weight: String(batch.qty),
           Price: Number(Math.round(batch.price)),
-          Batches: String(val.batches.length)
+          Batches: String(val.batches.length),
         });
       } catch (error) {
         console.log(error);
@@ -92,23 +96,31 @@ export class BrcComponent {
     writeFile(wb, fileName);
   }
 
-  calculateAverage(batches: any[]) {
+  calculateAverage(batches: any[]): {
+    price: any,
+    qty: any,
+    uom: any
+  } {
     let res = batches.reduce((ex, batch) => {
       let bP = batch[18];
       let bQ = batch[13];
       let bM = batch[20];
+      let bW = batch[14];
+      let bU = batch[12];
       let pDays = batch[11] ? Number(batch[11]) : 0;
       if (pDays < 0) {
         return ex;
       } else {
         return {
           price: ((ex.price * ex.qty) + (bQ * (bP * (1 + (bM / 100))))) / (ex.qty + bQ),
-          qty: ex.qty + bQ
+          qty: ex.qty + bQ,
+          uom: bU
         }
       }
     }, {
       price: 0,
-      qty: 0
+      qty: 0,
+      uom: ''
     });
     return res;
   }
