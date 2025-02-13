@@ -7,10 +7,10 @@ node {
             sh 'sudo systemctl disable nginx'
         }
         stage('Installing required files') {
-            sh 'npm i --save --legacy-peer-deps'
+            sh 'sudo npm i --save --legacy-peer-deps'
         }
         stage('Building Dist') {
-            sh 'npm run build'
+            sh 'sudo npm run build'
         }
         stage('Clear Files') {
             sh 'sudo rm -rf /var/www/html/brc.abhinayresume.online/*'
