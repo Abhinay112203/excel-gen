@@ -102,12 +102,12 @@ export class BrcComponent {
     uom: any
   } {
     let res = batches.reduce((ex, batch) => {
-      let bP = batch[18];
-      let bQ = batch[13];
-      let bM = batch[20];
-      let bW = batch[14];
-      let bU = batch[12];
-      let pDays = batch[11] ? Number(batch[11]) : 0;
+      let bP = batch[20];//18
+      let bQ = batch[15];//13
+      let bM = batch[22];//20
+      let bW = batch[16];//14
+      let bU = batch[14];//12
+      let pDays = batch[13] ? Number(batch[13]) : 0;//11
       if (pDays < 0) {
         return ex;
       } else {
