@@ -6,6 +6,12 @@ node {
         stage('Stopping Nginx') {
             sh 'sudo systemctl disable nginx'
         }
+        stage('Cleaning NPM Cache') {
+            sh 'sudo npm cache clean --force'
+        }
+        stage('Deleting Existing Files') {
+            sh 'sudo rm -rf node_modules/*'
+        }
         stage('Installing required files') {
             sh 'sudo npm i --legacy-peer-deps'
         }
