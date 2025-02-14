@@ -45,14 +45,14 @@ export class BrcComponent {
       /* save data */
       this.excelData = (utils.sheet_to_json(ws, { header: 1, defval: null })).slice(6, -1)
       this.mappedData = new Map<string, { ItemCode: string, batches: any[] }>();
-      this.excelData = this.excelData.filter(item => this.itemsList.includes(item[3]));
+      this.excelData = this.excelData.filter(item => this.itemsList.includes(item[5]));//3
       this.excelData.forEach((item) => {
-        const itemRef = item[3];
+        const itemRef = item[5];//3
         if (this.mappedData.has(itemRef)) {
           let existing = this.mappedData.get(itemRef);
           existing?.batches.push(item);
         } else {
-          this.mappedData.set(itemRef, { ItemCode: item[2], batches: [item] });
+          this.mappedData.set(itemRef, { ItemCode: item[4], batches: [item] });//2
         }
       });
     };
